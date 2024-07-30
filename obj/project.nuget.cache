@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "8DBKscLe9+g=",
-  "success": true,
+  "dgSpecHash": "PPt1X20IO28=",
+  "success": false,
   "projectFilePath": "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI\\FullStackAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\CrossMarian\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
@@ -101,6 +101,15 @@
     "C:\\Users\\CrossMarian\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

@@ -4903,6 +4903,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "BCrypt.Net-Next >= 4.0.3",
+      "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.7",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
       "Microsoft.AspNetCore.Mvc.Abstractions >= 2.2.0",
@@ -4944,7 +4945,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj": {
+              "projectPath": "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -5041,6 +5046,15 @@
     }
   },
   "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

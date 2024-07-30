@@ -3,10 +3,11 @@ using FullStackAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
-
+[Authorize]
 public class ContactController : ControllerBase
 {
     private readonly DataContext _context;

@@ -141,3 +141,4 @@ C:\Users\CrossMarian\source\repos\FullStackAPI\FullStackAPI\obj\Debug\net8.0\Ful
 C:\Users\CrossMarian\source\repos\FullStackAPI\FullStackAPI\obj\Debug\net8.0\FullStackAPI.genruntimeconfig.cache
 C:\Users\CrossMarian\source\repos\FullStackAPI\FullStackAPI\obj\Debug\net8.0\ref\FullStackAPI.dll
 C:\Users\CrossMarian\source\repos\FullStackAPI\FullStackAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\CrossMarian\source\repos\FullStackAPI\FullStackAPI\obj\Debug\net8.0\FullStackAPI.sourcelink.json

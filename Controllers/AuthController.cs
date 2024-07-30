@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Extensions.Options;
+using NLog;
 using FullStackAPI.Data;
 using FullStackAPI.Models;
-using NLog;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
 {
     private readonly DataContext _context;
+    private readonly JwtTokenService _jwtTokenService;  // JwtTokenService'yi ekleyin
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-    public AuthController(DataContext context)
+    public AuthController(DataContext context, JwtTokenService jwtTokenService)
     {
         _context = context;
+        _jwtTokenService = jwtTokenService;
     }
 
     [HttpPost("login")]
@@ -27,38 +27,17 @@ public class AuthController : ControllerBase
 
         if (user == null || !VerifyPassword(user.Password, model.Password))
         {
-            // Check if the user is locked out
-            if (user != null && user.LockoutEnd.HasValue && user.LockoutEnd > DateTime.Now)
-            {
-                var timeLeft = (user.LockoutEnd.Value - DateTime.Now).TotalSeconds;
-                return BadRequest(new { message = $"Please wait {Math.Ceiling(timeLeft)} seconds before trying again." });
-            }
-
-            if (user != null)
-            {
-                user.FailedLoginAttempts++;
-                if (user.FailedLoginAttempts >= 3)
-                {
-                    user.LockoutEnd = DateTime.Now.AddSeconds(15); // Lock for 15 seconds
-                }
-                await _context.SaveChangesAsync();
-            }
-            return Ok(new { message = "test successful" });
-            //return BadRequest(new { message = "Invalid username or password" });
+            return Unauthorized(new { message = "Invalid credentials" });
         }
 
-        // Reset failed login attempts and lockout
-        user.FailedLoginAttempts = 0;
-        user.LockoutEnd = null; // Ensure LockoutEnd is set to null
-        await _context.SaveChangesAsync();
+        var token = _jwtTokenService.GenerateToken(user);  // Token oluşturmayı buradan yapın
 
-        return Ok(new { message = "Login successful" });
+        return Ok(new { message = "Login successful", token });
     }
 
     private bool VerifyPassword(string storedPassword, string enteredPassword)
     {
-        // Implement your password verification logic here
-        return storedPassword == enteredPassword;
+        return BCrypt.Net.BCrypt.Verify(enteredPassword, storedPassword);
     }
 
     [HttpGet]
@@ -67,5 +46,32 @@ public class AuthController : ControllerBase
         Logger.Info("GetAllUsers endpoint called");
         var users = await _context.Users.ToListAsync();
         return Ok(users);
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] User model)
+    {
+        if (await _context.Users.AnyAsync(u => u.Username == model.Username))
+        {
+            return BadRequest(new { message = "Username already exists" });
+        }
+
+        if (string.IsNullOrWhiteSpace(model.Username) || string.IsNullOrWhiteSpace(model.Password))
+        {
+            return BadRequest(new { message = "Username and password are required" });
+        }
+
+        // Hash the password before saving
+        model.Password = HashPassword(model.Password);
+
+        _context.Users.Add(model);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Registration successful" });
+    }
+
+    private string HashPassword(string password)
+    {
+        return BCrypt.Net.BCrypt.HashPassword(password);
     }
 }

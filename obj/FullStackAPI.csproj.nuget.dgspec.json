@@ -28,7 +28,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj": {
+                "projectPath": "C:\\Users\\CrossMarian\\source\\repos\\FullStackAPI\\FullStackAPI.Services\\FullStackAPI.Services.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
